@@ -1,0 +1,533 @@
+<title>Fer Bernstein — Drum Doctor</title>
+<meta name="description" content="Afinación y puesta a punto de baterías para grabación y shows. Buenos Aires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --ink:#0d0d0d;
+    --ink-2:#161412;
+    --bone:#f2ede4;
+    --bone-2:#e6dfd2;
+    --rust:#c46a3a;
+    --mute-d:#8c857b;      /* texto tenue sobre negro */
+    --mute-l:#6e665c;      /* texto tenue sobre crema */
+    --rule-d:#2b2723;
+    --rule-l:#cdc4b5;
+    --display:"Archivo","Archivo Black","Helvetica Neue",Helvetica,"Arial Black",sans-serif;
+    --body:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+    --gut:clamp(16px,4vw,56px);
+    --head-h:56px;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--ink)}
+  @media (min-width:960px) and (min-height:720px){
+    html{scroll-snap-type:y proximity}
+  }
+  body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  a:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+  ::selection{background:var(--rust);color:var(--ink)}
+
+  /* ---------- tipos ---------- */
+  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:11px;line-height:1.5;font-weight:500}
+  .d{font-family:var(--display);font-weight:900;font-stretch:100%;text-transform:uppercase;letter-spacing:-.045em;line-height:.86;margin:0;text-wrap:balance}
+  .d-xxl{font-size:clamp(4.2rem,15.5vw,15rem)}
+  .d-xl{font-size:clamp(2.6rem,7.4vw,6.8rem)}
+  .d-l{font-size:clamp(2.2rem,5.2vw,4.8rem)}
+  .rust{color:var(--rust)}
+  .lede{font-size:clamp(1.02rem,1.3vw,1.18rem);max-width:58ch;margin:0}
+  .eyebrow{color:var(--rust);display:flex;gap:.9em;align-items:center;margin:0 0 clamp(18px,2.4vw,32px)}
+  .eyebrow b{font-weight:700}
+
+  /* ---------- header fijo ---------- */
+  .top{position:fixed;inset:0 0 auto 0;height:var(--head-h);z-index:50;display:flex;justify-content:space-between;align-items:center;padding-inline:var(--gut);color:#f2ede4;mix-blend-mode:difference;pointer-events:none}
+  .top a{pointer-events:auto;text-decoration:none}
+  .top .r{text-align:right}
+  .top .r span{display:inline}
+  @media (max-width:480px){.top .r span{display:block}.top{font-size:10px;letter-spacing:.14em}}
+
+  /* ---------- slides ---------- */
+  .slide{position:relative;min-height:100svh;padding:calc(var(--head-h) + clamp(28px,5vh,64px)) var(--gut) 96px;scroll-snap-align:start;display:flex;flex-direction:column;overflow:hidden}
+  .slide.light{background:var(--bone);color:var(--ink)}
+  .slide.dark{background:var(--ink);color:var(--bone)}
+  .slide > .body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,4vw,56px);position:relative;z-index:2}
+
+  .foot{position:absolute;left:var(--gut);right:var(--gut);bottom:0;height:56px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-top:1px solid var(--rule-d);color:var(--mute-d);z-index:3;font-size:10px}
+  .light .foot{border-top-color:var(--rule-l);color:var(--mute-l)}
+  .foot .c{text-align:center}
+  .foot .p{text-align:right;font-variant-numeric:tabular-nums}
+  .foot .p b{color:var(--rust);font-weight:700}
+  @media (max-width:560px){.foot{grid-template-columns:1fr auto}.foot .c{display:none}}
+
+  /* ---------- fotos ---------- */
+  .ph{position:relative;overflow:hidden;background:
+      radial-gradient(120% 90% at 30% 20%,#5a4332 0%,#2c211a 45%,#120e0b 100%);}
+  .ph.bw{background:radial-gradient(120% 90% at 40% 25%,#6a6660 0%,#2a2826 48%,#0c0c0c 100%)}
+  .ph::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.35;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .ph::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(140% 100% at 50% 40%,transparent 55%,rgba(0,0,0,.55) 100%)}
+  .ph svg.art{position:absolute;inset:8% 8% 12%;width:84%;height:80%;color:#e9dcc6;opacity:.34;z-index:1}
+  .ph.bw svg.art{color:#e8e8e8;opacity:.3}
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:grayscale(1) sepia(.5) contrast(1.15) brightness(.88)}
+  .ph.bw img{filter:grayscale(1) contrast(1.35) brightness(.92)}
+  .ph figcaption{position:absolute;left:14px;bottom:12px;z-index:3;color:rgba(242,237,228,.72);font-size:10px}
+
+  /* ---------- reveal ---------- */
+  @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @keyframes wipe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .rv.in{animation:up .9s cubic-bezier(.2,.7,.1,1) both;animation-delay:var(--d,0s)}
+  .hero-rule.in{animation:wipe 1.1s cubic-bezier(.7,0,.2,1) both;animation-delay:.35s;transform-origin:left}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .rv.in,.hero-rule.in{animation:none}
+  }
+
+  /* ---------- 1 HERO ---------- */
+  #inicio{padding-top:calc(var(--head-h) + 20px)}
+  #inicio .ph{position:absolute;top:0;right:0;bottom:0;width:48%;z-index:0}
+  #inicio .ph::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(13,13,13,.35) 30%,transparent 60%),radial-gradient(140% 100% at 60% 40%,transparent 50%,rgba(0,0,0,.6) 100%)}
+  .hero-body{justify-content:space-between !important}
+  .hero-title{margin-top:auto}
+  .hero-rule{width:clamp(80px,12vw,168px);height:3px;background:var(--rust);margin:clamp(22px,3vw,36px) 0 18px;border:0}
+  .hero-sub{color:var(--bone);letter-spacing:.22em}
+  .hero-sub em{font-style:normal;color:var(--rust)}
+  .hero-base{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-top:clamp(40px,8vh,96px)}
+  .anchor{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.05rem,1.8vw,1.5rem);line-height:1.05;max-width:28ch;margin:0}
+  .spec{border-left:1px solid var(--rust);padding-left:14px;color:var(--mute-d);font-size:10px;line-height:1.9;font-variant-numeric:tabular-nums}
+  .spec b{color:var(--bone);font-weight:500}
+  @media (max-width:820px){
+    #inicio .ph{width:100%;opacity:.5}
+    #inicio .ph::after{background:linear-gradient(180deg,rgba(13,13,13,.2),var(--ink) 92%)}
+  }
+
+  /* ---------- 2 SERVICIOS ---------- */
+  .svc-head{display:grid;gap:18px;max-width:1100px}
+  .svc-head .lede{color:var(--mute-d)}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px)}
+  .col{border-top:1px solid var(--rust);padding-top:18px;display:grid;align-content:start;gap:14px}
+  .col .n{color:var(--rust)}
+  .col h3{font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;font-size:clamp(1.3rem,2.1vw,1.9rem);line-height:.95;margin:0}
+  .col ul{list-style:none;margin:0;padding:0;display:grid;gap:0}
+  .col li{padding:10px 0;border-bottom:1px solid var(--rule-d);display:grid;grid-template-columns:22px 1fr;color:#d8d1c5}
+  .col li::before{content:"—";color:var(--rust)}
+  .quote{font-style:italic;font-weight:400;font-stretch:92%;font-size:clamp(1.2rem,2.2vw,1.9rem);line-height:1.2;letter-spacing:-.01em;margin:0;max-width:40ch;text-wrap:balance}
+  .quote span{color:var(--rust)}
+  @media (max-width:860px){.cols3{grid-template-columns:1fr}}
+
+  /* ---------- 3 KITS ---------- */
+  #kits{padding-right:0}
+  .split{display:grid;grid-template-columns:minmax(0,1.05fr) 6px minmax(0,.95fr);flex:1;gap:0;position:relative;z-index:2}
+  .split .txt{display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,3vw,40px);padding-right:clamp(20px,4vw,64px)}
+  .split .bar{background:var(--rust)}
+  .split .ph{margin:calc(-1 * (var(--head-h) + clamp(28px,5vh,64px))) 0 -96px}
+  .tbl-wrap{overflow-x:auto}
+  table.gear{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:460px}
+  .gear caption{text-align:left;color:var(--rust);padding:0 0 10px}
+  .gear th{font-family:var(--mono);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:10px;text-align:left;color:var(--mute-d);padding:0 12px 10px 0;border-bottom:1px solid var(--bone)}
+  .gear td{padding:11px 12px 11px 0;border-bottom:1px solid var(--rule-d);vertical-align:baseline}
+  .gear td:first-child{font-weight:700;letter-spacing:-.01em}
+  .gear td.y{font-family:var(--mono);font-size:12px;color:var(--rust)}
+  .gear td.m{font-family:var(--mono);font-size:12px;color:#d8d1c5}
+  .gear + .gear{margin-top:28px}
+  @media (max-width:960px){
+    #kits{padding-right:var(--gut)}
+    .split{grid-template-columns:1fr;gap:0}
+    .split .txt{padding-right:0}
+    .split .bar{height:6px;margin-top:40px}
+    .split .ph{margin:0 calc(-1 * var(--gut)) -96px;min-height:60vw}
+  }
+
+  /* ---------- 4 PLATILLOS ---------- */
+  .cym-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
+  .cym-head .lede{color:var(--mute-l);max-width:36ch}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(24px,5vw,80px)}
+  .cat{display:grid;grid-template-columns:48px 1fr;gap:0 12px;padding:16px 0;border-top:1px solid var(--rule-l)}
+  .cat .n{font-family:var(--mono);color:var(--rust);font-weight:700;font-size:12px;padding-top:4px}
+  .cat h3{font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;font-size:clamp(1.15rem,1.7vw,1.5rem);margin:0 0 6px;line-height:1}
+  .cat ul{list-style:none;margin:0;padding:0;grid-column:2}
+  .cat li{display:flex;justify-content:space-between;gap:16px;padding:3px 0;font-size:15px}
+  .cat li span:last-child{font-family:var(--mono);font-size:12px;color:var(--mute-l);white-space:nowrap}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,24px)}
+  .pair .ph{aspect-ratio:16/9;border:1px solid var(--rust)}
+  @media (max-width:760px){.grid2,.pair{grid-template-columns:1fr}}
+
+  /* ---------- 5 EXTRAS ---------- */
+  .ex-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px)}
+  .ex h3{display:flex;gap:14px;align-items:baseline;font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;font-size:clamp(1.25rem,2vw,1.75rem);margin:0 0 14px;line-height:1;border-bottom:1px solid var(--bone);padding-bottom:14px}
+  .ex h3 .mono{color:var(--rust)}
+  .ex ol{list-style:none;counter-reset:x;margin:0;padding:0;columns:1}
+  .ex li{counter-increment:x;display:grid;grid-template-columns:40px 1fr auto;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule-d);font-size:15px}
+  .ex li::before{content:counter(x,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--mute-d);padding-top:3px}
+  .ex li small{font-family:var(--mono);font-size:11px;color:var(--mute-d);text-transform:uppercase;letter-spacing:.1em;padding-top:3px}
+  .banner{aspect-ratio:32/9;min-height:160px;width:100%}
+  @media (max-width:760px){.ex-cols{grid-template-columns:1fr}.banner{aspect-ratio:16/9}}
+
+  /* ---------- 6 GALERÍA ---------- */
+  .mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:minmax(220px,38vh) minmax(150px,22vh);gap:2px;background:var(--rust);border:2px solid var(--rust)}
+  .mosaic .big{grid-column:1 / -1}
+  @media (max-width:640px){.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:240px 150px 150px}.mosaic .ph:last-child{grid-column:1 / -1}}
+
+  /* ---------- 7 BIO ---------- */
+  #bio{padding:0}
+  .bio{display:grid;grid-template-columns:1fr 6px 1fr;flex:1;min-height:100svh}
+  .bio .ph{min-height:100%}
+  .bio .bar{background:var(--rust)}
+  .bio .txt{padding:calc(var(--head-h) + clamp(28px,5vh,64px)) var(--gut) 96px;display:flex;flex-direction:column;justify-content:center;gap:24px;position:relative}
+  .bio .txt p{margin:0;max-width:56ch}
+  .bio .txt .strong{font-weight:700;font-size:clamp(1.05rem,1.35vw,1.2rem);line-height:1.4;color:var(--ink);border-left:3px solid var(--rust);padding-left:16px}
+  .bio .txt .strong em{font-style:normal;color:var(--rust)}
+  .criterio{border-top:1px solid var(--ink);padding-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .criterio .mono{color:var(--rust);grid-column:1 / -1}
+  .criterio div{font-size:14px;line-height:1.4}
+  .criterio div b{display:block;font-family:var(--display);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:15px}
+  #bio .foot{left:calc(50% + 3px + var(--gut))}
+  @media (max-width:900px){
+    .bio{grid-template-columns:1fr;min-height:0}
+    .bio .ph{min-height:70vw}
+    .bio .bar{height:6px}
+    .bio .txt{padding-top:56px}
+    #bio .foot{left:var(--gut)}
+    .criterio{grid-template-columns:1fr}
+  }
+
+  /* ---------- 8 CONTACTO ---------- */
+  #contacto{padding-right:0}
+  .contact .txt{gap:clamp(22px,3vw,34px)}
+  .contact .lede{color:var(--mute-d)}
+  .ch{display:grid;border-top:1px solid var(--rule-d)}
+  .ch a{display:grid;grid-template-columns:130px 1fr auto;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid var(--rule-d);text-decoration:none;transition:padding .35s cubic-bezier(.2,.7,.1,1)}
+  .ch .mono{color:var(--rust)}
+  .ch strong{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.1rem,2vw,1.6rem);overflow-wrap:anywhere}
+  .ch .arr{font-family:var(--mono);color:var(--mute-d);transition:transform .35s,color .35s}
+  .ch a:hover{padding-left:10px}
+  .ch a:hover .arr{transform:translateX(6px);color:var(--rust)}
+  .sign{color:var(--mute-d)}
+  .sign b{color:var(--bone);font-weight:500}
+  .contact .bar{background:var(--rust)}
+  @media (max-width:560px){.ch a{grid-template-columns:1fr auto}.ch .mono{grid-column:1 / -1}}
+</style>
+
+<!-- Ilustraciones de línea: se ven solo mientras no haya foto real en /img -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-kit" viewBox="0 0 400 300">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <ellipse cx="60" cy="70" rx="58" ry="7"/><path d="M60 77v150M46 227h28"/>
+        <ellipse cx="338" cy="58" rx="62" ry="8"/><ellipse cx="338" cy="56" rx="10" ry="3"/><path d="M338 66v160M322 226h32"/>
+        <ellipse cx="82" cy="168" rx="36" ry="6"/><ellipse cx="82" cy="162" rx="36" ry="6"/><path d="M82 174v60"/>
+        <circle cx="200" cy="200" r="72"/><circle cx="200" cy="200" r="64"/><circle cx="200" cy="200" r="22"/>
+        <path d="M200 128v-6M200 278v-6M128 200h-6M278 200h-6M149 149l-4-4M251 149l4-4M149 251l-4 4M251 251l4 4"/>
+        <ellipse cx="160" cy="112" rx="30" ry="9"/><path d="M130 112v26M190 112v26"/><path d="M130 138c10 7 50 7 60 0"/>
+        <ellipse cx="240" cy="112" rx="34" ry="10"/><path d="M206 112v30M274 112v30"/><path d="M206 142c12 8 56 8 68 0"/>
+        <ellipse cx="316" cy="190" rx="44" ry="11"/><path d="M272 190v52M360 190v52"/><path d="M272 242c14 10 74 10 88 0"/>
+        <path d="M290 190v52M304 191v54M328 191v54M342 190v52"/>
+        <path d="M200 60 190 20M200 60l28-36"/><ellipse cx="180" cy="22" rx="40" ry="5" transform="rotate(-8 180 22)"/>
+      </g>
+    </symbol>
+    <symbol id="s-snare" viewBox="0 0 400 300">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <ellipse cx="200" cy="96" rx="150" ry="36"/><ellipse cx="200" cy="96" rx="140" ry="31"/>
+        <path d="M50 96v110M350 96v110"/><path d="M50 206c20 44 280 44 300 0"/>
+        <path d="M92 124v96M140 131v100M200 132v102M260 131v100M308 124v96"/>
+        <path d="M86 150h12M134 158h12M194 160h12M254 158h12M302 150h12"/>
+        <path d="M52 140h-18v24h18"/>
+      </g>
+    </symbol>
+    <symbol id="s-cym" viewBox="0 0 400 300">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <ellipse cx="200" cy="130" rx="180" ry="42"/><ellipse cx="200" cy="130" rx="120" ry="28"/><ellipse cx="200" cy="130" rx="60" ry="14"/>
+        <path d="M172 126c4-18 52-18 56 0"/><path d="M200 108V92M200 170v120"/>
+      </g>
+    </symbol>
+    <symbol id="s-hands" viewBox="0 0 400 300">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <ellipse cx="200" cy="170" rx="160" ry="44"/><ellipse cx="200" cy="170" rx="150" ry="38"/>
+        <path d="M40 170v80M360 170v80"/>
+        <path d="M90 150 170 30M100 156 184 34"/><circle cx="177" cy="30" r="8"/>
+        <path d="M250 190l20 20M270 170a22 22 0 1 1 0 .1"/><path d="M262 178l30 30"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top mono">
+  <a href="#inicio">Fer Bernstein</a>
+  <div class="r"><span>Sound Consulting / </span><span>Buenos Aires</span></div>
+</header>
+
+<main>
+
+<!-- 01 HERO -->
+<section class="slide dark" id="inicio" data-name="Inicio">
+  <figure class="ph" style="margin:0">
+    <svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-kit"/></svg>
+    <img src="img/hero-kit.jpg" alt="Batería Ludwig de los años 60 en estudio">
+  </figure>
+  <div class="body hero-body">
+    <div></div>
+    <div class="hero-title">
+      <h1 class="d d-xxl rv">Drum<br>Doctor</h1>
+      <hr class="hero-rule rv">
+      <p class="mono hero-sub rv" style="--d:.2s;margin:0">Afinación / Puesta a punto <em>—</em> Grabación / Shows</p>
+    </div>
+    <div class="hero-base">
+      <p class="anchor rv" style="--d:.35s">El sonido empieza antes del primer golpe.</p>
+      <div class="spec mono rv" style="--d:.5s" aria-label="Referencia de afinación">
+        Ref. afinación<br>
+        Bombo 22″ ··· <b>55 Hz</b><br>
+        Tom 13″ ···· <b>110 Hz</b><br>
+        Redo 14″×5″ · <b>220 Hz</b>
+      </div>
+    </div>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Inicio</span><span class="p"><b>01</b> / 08</span></footer>
+</section>
+
+<!-- 02 SERVICIOS -->
+<section class="slide dark" id="servicios" data-name="Servicios">
+  <div class="body">
+    <div class="svc-head">
+      <p class="mono eyebrow rv"><b>01</b> / Servicios</p>
+      <h2 class="d d-xl rv" style="--d:.08s">Construir el<br>sonido correcto.</h2>
+      <p class="lede rv" style="--d:.16s">Cada parche, cada tornillo y cada platillo al servicio de la canción y de la sala.</p>
+    </div>
+    <div class="cols3">
+      <article class="col rv" style="--d:.1s">
+        <span class="mono n">A — Antes</span>
+        <h3>Pre-producción</h3>
+        <ul>
+          <li>Escucha de referencias y maquetas</li>
+          <li>Elección de kit, redo y platillos</li>
+          <li>Plan de afinación por canción</li>
+        </ul>
+      </article>
+      <article class="col rv" style="--d:.2s">
+        <span class="mono n">B — Taller</span>
+        <h3>Puesta a punto</h3>
+        <ul>
+          <li>Cambio y asentado de parches</li>
+          <li>Bordes, torres, bordonera y herrajes</li>
+          <li>Ruidos, vibraciones y control de armónicos</li>
+        </ul>
+      </article>
+      <article class="col rv" style="--d:.3s">
+        <span class="mono n">C — En sala</span>
+        <h3>Grabación y shows</h3>
+        <ul>
+          <li>Afinación entre tomas y canciones</li>
+          <li>Ajustes según micrófonos y sala</li>
+          <li>Backline y asistencia en escenario</li>
+        </ul>
+      </article>
+    </div>
+    <p class="quote rv" style="--d:.2s">“Una batería bien afinada no se nota. <span>Se nota cuando no lo está.</span>”</p>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Servicios</span><span class="p"><b>02</b> / 08</span></footer>
+</section>
+
+<!-- 03 KITS -->
+<section class="slide dark" id="kits" data-name="Material — Kits">
+  <div class="split">
+    <div class="txt">
+      <div>
+        <p class="mono eyebrow rv"><b>02</b> / Material — Kits</p>
+        <h2 class="d d-l rv" style="--d:.08s">Cascos que<br>ya grabaron.</h2>
+      </div>
+      <div class="tbl-wrap rv" style="--d:.16s">
+        <table class="gear">
+          <caption class="mono">Baterías</caption>
+          <thead><tr><th scope="col">Modelo</th><th scope="col">Año</th><th scope="col">Medidas (bombo / toms / chancha)</th></tr></thead>
+          <tbody>
+            <tr><td>Ludwig Club Date</td><td class="y">1966</td><td class="m">22″ · 13″ · 16″</td></tr>
+            <tr><td>Gretsch Round Badge</td><td class="y">1962</td><td class="m">20″ · 12″ · 14″</td></tr>
+            <tr><td>Yamaha Recording Custom</td><td class="y">1988</td><td class="m">22″ · 10″ · 12″ · 16″</td></tr>
+            <tr><td>Slingerland Radio King</td><td class="y">1958</td><td class="m">24″ · 13″ · 16″</td></tr>
+          </tbody>
+        </table>
+        <table class="gear">
+          <caption class="mono">Redoblantes</caption>
+          <thead><tr><th scope="col">Modelo</th><th scope="col">Año</th><th scope="col">Medida / casco</th></tr></thead>
+          <tbody>
+            <tr><td>Ludwig Supraphonic 400</td><td class="y">1968</td><td class="m">14″×5″ · Ludalloy</td></tr>
+            <tr><td>Ludwig Black Beauty</td><td class="y">1979</td><td class="m">14″×6.5″ · Bronce</td></tr>
+            <tr><td>Gretsch 4160</td><td class="y">1964</td><td class="m">14″×5″ · Arce 6 capas</td></tr>
+            <tr><td>Pearl Piccolo</td><td class="y">1992</td><td class="m">13″×3.5″ · Acero</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="bar" aria-hidden="true"></div>
+    <figure class="ph">
+      <svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-snare"/></svg>
+      <img src="img/kits.jpg" alt="Redoblante Ludwig Supraphonic de 1968">
+      <figcaption class="mono">Supraphonic 400 — 1968</figcaption>
+    </figure>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Material — Kits</span><span class="p"><b>03</b> / 08</span></footer>
+</section>
+
+<!-- 04 PLATILLOS -->
+<section class="slide light" id="platillos" data-name="Material — Platillos">
+  <div class="body">
+    <div class="cym-head">
+      <div>
+        <p class="mono eyebrow rv"><b>03</b> / Material — Platillos</p>
+        <h2 class="d d-xl rv" style="--d:.08s">Metal con<br>personalidad.</h2>
+      </div>
+      <p class="lede rv" style="--d:.16s">Elegidos por su decaimiento, no por su catálogo. Diámetros en pulgadas.</p>
+    </div>
+    <div class="grid2">
+      <div>
+        <div class="cat rv"><span class="n">01</span><div><h3>Hi-Hat</h3></div>
+          <ul><li><span>Zildjian A New Beat</span><span>14″</span></li><li><span>Paiste 602 Sound Edge</span><span>15″</span></li></ul></div>
+        <div class="cat rv" style="--d:.08s"><span class="n">02</span><div><h3>Crash</h3></div>
+          <ul><li><span>Zildjian K Dark Thin</span><span>17″</span></li><li><span>Istanbul Agop Traditional</span><span>18″</span></li></ul></div>
+        <div class="cat rv" style="--d:.16s"><span class="n">03</span><div><h3>FX Crash</h3></div>
+          <ul><li><span>Zildjian Oriental China Trash</span><span>16″</span></li><li><span>Sabian Stack O-Zone</span><span>12″ / 14″</span></li></ul></div>
+      </div>
+      <div>
+        <div class="cat rv" style="--d:.04s"><span class="n">04</span><div><h3>Ride</h3></div>
+          <ul><li><span>Zildjian K Constantinople</span><span>22″</span></li><li><span>Paiste 2002</span><span>20″</span></li></ul></div>
+        <div class="cat rv" style="--d:.12s"><span class="n">05</span><div><h3>Otros</h3></div>
+          <ul><li><span>Zildjian A Splash</span><span>10″</span></li><li><span>Zildjian A Crash-Ride (años 60)</span><span>20″</span></li><li><span>Meinl Byzance Bell</span><span>8″</span></li></ul></div>
+      </div>
+    </div>
+    <div class="pair">
+      <figure class="ph bw rv" style="margin:0"><svg class="art"><use href="#s-cym"/></svg><img src="img/platillo-1.jpg" alt="Ride Zildjian K Constantinople"><figcaption class="mono">K Constantinople 22″</figcaption></figure>
+      <figure class="ph bw rv" style="margin:0;--d:.1s"><svg class="art"><use href="#s-cym"/></svg><img src="img/platillo-2.jpg" alt="Hi-hat Zildjian New Beat"><figcaption class="mono">A New Beat 14″</figcaption></figure>
+    </div>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Material — Platillos</span><span class="p"><b>04</b> / 08</span></footer>
+</section>
+
+<!-- 05 EXTRAS -->
+<section class="slide dark" id="extras" data-name="Material — Extras">
+  <div class="body">
+    <div>
+      <p class="mono eyebrow rv"><b>04</b> / Material — Extras</p>
+      <h2 class="d d-l rv" style="--d:.08s">Todo lo que<br>no se ve.</h2>
+    </div>
+    <div class="ex-cols">
+      <div class="ex rv">
+        <h3><span class="mono">A</span>Instrumentos / Hardware</h3>
+        <ol>
+          <li>Pedal DW 5000 <small>Cadena</small></li>
+          <li>Pedal Ludwig Speed King <small>Vintage</small></li>
+          <li>Máquina de hi-hat Tama Iron Cobra <small>—</small></li>
+          <li>Pedal doble Pearl Eliminator <small>Correa</small></li>
+          <li>Pies de platillo Rogers Swiv-o-matic <small>×3</small></li>
+          <li>Banquetas Roc-N-Soc <small>×2</small></li>
+        </ol>
+      </div>
+      <div class="ex rv" style="--d:.1s">
+        <h3><span class="mono">B</span>Parches / Percusión / Control</h3>
+        <ol>
+          <li>Remo Coated Ambassador <small>10″–16″</small></li>
+          <li>Evans EMAD / Remo Powerstroke 3 <small>Bombo</small></li>
+          <li>Pandereta, shakers, cencerro LP <small>Set</small></li>
+          <li>Moongel, Big Fat Snare Drum <small>Control</small></li>
+          <li>Tama Tension Watch / DrumDial <small>Medición</small></li>
+          <li>Afinador estroboscópico <small>Hz</small></li>
+        </ol>
+      </div>
+    </div>
+    <figure class="ph banner rv" style="margin:0"><svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-kit"/></svg><img src="img/extras-banner.jpg" alt="Hardware y parches sobre la mesa de trabajo"><figcaption class="mono">Mesa de taller — Villa Crespo</figcaption></figure>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Material — Extras</span><span class="p"><b>05</b> / 08</span></footer>
+</section>
+
+<!-- 06 GALERÍA -->
+<section class="slide dark" id="galeria" data-name="Galería">
+  <div class="body">
+    <div>
+      <p class="mono eyebrow rv"><b>05</b> / Galería</p>
+      <h2 class="d d-xl rv" style="--d:.08s">Instrumentos<br><span class="rust">con historia.</span></h2>
+    </div>
+    <div class="mosaic rv" style="--d:.16s">
+      <figure class="ph big" style="margin:0"><svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-kit"/></svg><img src="img/galeria-1.jpg" alt="Kit Gretsch Round Badge armado en estudio"><figcaption class="mono">Gretsch Round Badge — 1962</figcaption></figure>
+      <figure class="ph bw" style="margin:0"><svg class="art"><use href="#s-snare"/></svg><img src="img/galeria-2.jpg" alt="Detalle de torres de redoblante"><figcaption class="mono">Torres</figcaption></figure>
+      <figure class="ph" style="margin:0"><svg class="art"><use href="#s-cym"/></svg><img src="img/galeria-3.jpg" alt="Platillo ride con pátina"><figcaption class="mono">Pátina</figcaption></figure>
+      <figure class="ph bw" style="margin:0"><svg class="art"><use href="#s-hands"/></svg><img src="img/galeria-4.jpg" alt="Afinando un tom con llave"><figcaption class="mono">Llave</figcaption></figure>
+    </div>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Galería</span><span class="p"><b>06</b> / 08</span></footer>
+</section>
+
+<!-- 07 BIO -->
+<section class="slide light" id="bio" data-name="Experiencia">
+  <div class="bio">
+    <figure class="ph bw" style="margin:0"><svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-hands"/></svg><img src="img/fer.jpg" alt="Fer Bernstein afinando una batería"></figure>
+    <div class="bar" aria-hidden="true"></div>
+    <div class="txt">
+      <p class="mono rust rv" style="margin:0"><b>06</b> / Fer Bernstein</p>
+      <h2 class="d d-l rv" style="--d:.08s">Oído.<br>Oficio.<br>Práctica.</h2>
+      <p class="rv" style="--d:.16s">Baterista de sesión y técnico de batería con más de veinte años entre salas de ensayo, estudios y escenarios de Buenos Aires. Trabajó junto a productores, ingenieros y bateristas de rock, jazz, folklore y pop, afinando kits para discos, giras y festivales.</p>
+      <p class="strong rv" style="--d:.22s">No hay una afinación “correcta”: hay la que sirve para <em>esa canción, esa sala y ese baterista.</em> Encontrarla rápido es el trabajo.</p>
+      <div class="criterio rv" style="--d:.3s">
+        <span class="mono">Criterio aplicado</span>
+        <div><b>Escuchar</b>La referencia manda antes que el gusto propio.</div>
+        <div><b>Medir</b>Tensión y frecuencia para repetir el resultado.</div>
+        <div><b>Decidir</b>Menos control, más resonancia útil.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Experiencia</span><span class="p"><b>07</b> / 08</span></footer>
+</section>
+
+<!-- 08 CONTACTO -->
+<section class="slide dark" id="contacto" data-name="Contacto">
+  <div class="split contact">
+    <div class="txt">
+      <div>
+        <p class="mono eyebrow rv"><b>07</b> / Contacto</p>
+        <h2 class="d d-xl rv" style="--d:.08s">Hablemos<br>de sonido.</h2>
+      </div>
+      <p class="lede rv" style="--d:.14s">Contame qué vas a grabar o tocar, dónde y cuándo. Respondo en el día.</p>
+      <div class="ch rv" style="--d:.2s">
+        <a href="https://wa.me/5491100000000"><span class="mono">WhatsApp</span><strong>+54 9 11 0000-0000</strong><span class="arr">→</span></a>
+        <a href="https://instagram.com/ferbernstein.drums"><span class="mono">Instagram</span><strong>@ferbernstein.drums</strong><span class="arr">→</span></a>
+        <a href="mailto:hola@ferbernstein.com.ar"><span class="mono">Mail</span><strong>hola@ferbernstein.com.ar</strong><span class="arr">→</span></a>
+      </div>
+      <p class="mono sign rv" style="--d:.28s;margin:0"><b>Fer Bernstein — Drum Doctor</b><br>Buenos Aires, AR</p>
+    </div>
+    <div class="bar" aria-hidden="true"></div>
+    <figure class="ph">
+      <svg class="art" preserveAspectRatio="xMidYMid meet"><use href="#s-snare"/></svg>
+      <img src="img/contacto.jpg" alt="Redoblante sobre el piso de la sala">
+    </figure>
+  </div>
+  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Contacto</span><span class="p"><b>08</b> / 08</span></footer>
+</section>
+
+</main>
+
+<script>
+  // Fotos: si falta el archivo en /img, queda la ilustración de línea.
+  document.querySelectorAll('.ph img').forEach(function (img) {
+    function drop() { img.remove(); }
+    if (img.complete && img.naturalWidth === 0) drop();
+    else img.addEventListener('error', drop);
+    img.addEventListener('load', function () {
+      var art = img.parentNode && img.parentNode.querySelector('svg.art');
+      if (art) art.remove();
+    });
+  });
+
+  // Micro-animaciones: el contenido está visible en reposo; al entrar en viewport se reproduce la entrada.
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.rv, .hero-rule').forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) el.classList.add('in');
+      else io.observe(el);
+    });
+  }
+</script>
