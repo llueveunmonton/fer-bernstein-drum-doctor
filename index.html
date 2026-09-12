@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
 <title>Fer Bernstein — Drum Doctor</title>
 <meta name="description" content="Afinación y puesta a punto de baterías para grabación y shows. Buenos Aires.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,8 +40,9 @@
   /* ---------- tipos ---------- */
   .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:11px;line-height:1.5;font-weight:500}
   .d{font-family:var(--display);font-weight:900;font-stretch:100%;text-transform:uppercase;letter-spacing:-.045em;line-height:.86;margin:0;text-wrap:balance}
-  .d-xxl{font-size:clamp(4.2rem,15.5vw,15rem)}
-  .d-xl{font-size:clamp(2.6rem,7.4vw,6.8rem)}
+  /* el mínimo baja con el ancho para que palabras largas (INSTRUMENTOS) entren en 320px */
+  .d-xxl{font-size:clamp(min(4.2rem,19.5vw),15.5vw,15rem)}
+  .d-xl{font-size:clamp(min(2.6rem,10.4vw),7.4vw,6.8rem)}
   .d-l{font-size:clamp(2.2rem,5.2vw,4.8rem)}
   .rust{color:var(--rust)}
   .lede{font-size:clamp(1.02rem,1.3vw,1.18rem);max-width:58ch;margin:0}
@@ -135,10 +141,21 @@
   .gear + .gear{margin-top:28px}
   @media (max-width:960px){
     #kits{padding-right:var(--gut)}
-    .split{grid-template-columns:1fr;gap:0}
+    .split{grid-template-columns:minmax(0,1fr);gap:0}
     .split .txt{padding-right:0}
     .split .bar{height:6px;margin-top:40px}
     .split .ph{margin:0 calc(-1 * var(--gut)) -96px;min-height:60vw}
+    .split .ph figcaption{left:var(--gut);bottom:72px}
+  }
+  /* Tablas de kits apiladas en pantallas chicas: modelo arriba, año + medidas abajo */
+  @media (max-width:560px){
+    table.gear{min-width:0}
+    .gear thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+    .gear tbody,.gear tr{display:block}
+    .gear tr{display:grid;grid-template-columns:auto 1fr;column-gap:12px;padding:11px 0;border-bottom:1px solid var(--rule-d)}
+    .gear tr:first-child{border-top:1px solid var(--bone)}
+    .gear td{padding:0;border:0}
+    .gear td:first-child{grid-column:1 / -1;margin-bottom:2px}
   }
 
   /* ---------- 4 PLATILLOS ---------- */
@@ -203,11 +220,14 @@
   .ch .mono{color:var(--rust)}
   .ch strong{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.1rem,2vw,1.6rem);overflow-wrap:anywhere}
   .ch .arr{font-family:var(--mono);color:var(--mute-d);transition:transform .35s,color .35s}
-  .ch a:hover{padding-left:10px}
-  .ch a:hover .arr{transform:translateX(6px);color:var(--rust)}
+  @media (hover:hover){
+    .ch a:hover{padding-left:10px}
+    .ch a:hover .arr{transform:translateX(6px);color:var(--rust)}
+  }
   .sign{color:var(--mute-d)}
   .sign b{color:var(--bone);font-weight:500}
   .contact .bar{background:var(--rust)}
+  @media (max-width:960px){#contacto{padding-right:var(--gut)}}
   @media (max-width:560px){.ch a{grid-template-columns:1fr auto}.ch .mono{grid-column:1 / -1}}
 </style>
 
