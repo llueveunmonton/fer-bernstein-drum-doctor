@@ -94,8 +94,10 @@
 
   /* ---------- 1 HERO ---------- */
   #inicio{padding-top:calc(var(--head-h) + 20px)}
+  #inicio::before{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;background:radial-gradient(ellipse 40% 72% at 76% 45%,rgba(116,67,39,.28) 0%,rgba(116,67,39,.14) 38%,rgba(116,67,39,.05) 68%,transparent 100%);filter:blur(22px)}
   #inicio .ph{position:absolute;top:0;right:0;bottom:0;width:48%;z-index:0}
-  #inicio .ph::after{background:linear-gradient(90deg,var(--ink) 0%,rgba(13,13,13,.35) 30%,transparent 60%),radial-gradient(140% 100% at 60% 40%,transparent 50%,rgba(0,0,0,.6) 100%)}
+  #inicio .hero-ph{background:transparent;border:0;box-shadow:none;overflow:visible}
+  #inicio .hero-ph::before,#inicio .hero-ph::after{display:none}
   .hero-body{justify-content:space-between !important}
   .hero-title{margin-top:auto}
   .hero-rule{width:clamp(80px,12vw,168px);height:3px;background:var(--rust);margin:clamp(22px,3vw,36px) 0 18px;border:0}
@@ -106,8 +108,8 @@
   .spec{border-left:1px solid var(--rust);padding-left:14px;color:var(--mute-d);font-size:10px;line-height:1.9;font-variant-numeric:tabular-nums}
   .spec b{color:var(--bone);font-weight:500}
   @media (max-width:820px){
+    #inicio::before{inset:-12% -18%;background:radial-gradient(ellipse 76% 42% at 50% 39%,rgba(116,67,39,.28) 0%,rgba(116,67,39,.14) 40%,rgba(116,67,39,.05) 70%,transparent 100%);filter:blur(18px)}
     #inicio .ph{width:100%;opacity:.5}
-    #inicio .ph::after{background:linear-gradient(180deg,rgba(13,13,13,.2),var(--ink) 92%)}
   }
 
   /* ---------- 2 SERVICIOS ---------- */
