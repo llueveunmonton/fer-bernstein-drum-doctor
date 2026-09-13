@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>Header Lab — Drum Doctor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <style>
+    :root {
+      --ink: #0d0d0d;
+      --bone: #f2ede4;
+      --bone-2: #e6dfd2;
+      --rust: #c46a3a;
+      --mute: #8c857b;
+      --rule: #2b2723;
+      --display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+      --gut: clamp(16px, 4vw, 56px);
+      --header-height: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--bone);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+    .mono {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    /* Header experimental: active section, CTA and mobile navigation. */
+    .top {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: var(--header-height);
+      padding: 10px var(--gut);
+      border-bottom: 1px solid transparent;
+      background: rgba(13, 13, 13, .06);
+      transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+    }
+    .top.is-scrolled {
+      border-bottom-color: var(--rule);
+      background: rgba(13, 13, 13, .94);
+      backdrop-filter: blur(12px);
+    }
+    .brand { text-decoration: none; white-space: nowrap; }
+    .brand strong { color: var(--rust); font-weight: 700; }
+    .desktop-nav { display: flex; gap: clamp(14px, 2vw, 30px); }
+    .desktop-nav a, .mobile-nav a {
+      position: relative;
+      color: var(--mute);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .desktop-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: -9px;
+      left: 0;
+      height: 2px;
+      background: var(--rust);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .2s ease;
+    }
+    .desktop-nav a:hover, .desktop-nav a.is-active, .mobile-nav a:hover, .mobile-nav a.is-active { color: var(--bone); }
+    .desktop-nav a.is-active::after { transform: scaleX(1); }
+    .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
+    .location { color: var(--mute); }
+    .contact-link {
+      padding: 9px 13px;
+      border: 1px solid var(--rust);
+      color: var(--bone);
+      text-decoration: none;
+      transition: background-color .2s ease, color .2s ease;
+    }
+    .contact-link:hover { background: var(--rust); color: var(--ink); }
+    .menu-toggle {
+      display: none;
+      border: 0;
+      padding: 8px 0 8px 12px;
+      background: transparent;
+      color: var(--bone);
+      cursor: pointer;
+    }
+    .menu-toggle .close-label { display: none; }
+    .top.is-open .menu-toggle .open-label { display: none; }
+    .top.is-open .menu-toggle .close-label { display: inline; }
+    .mobile-nav {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 18px 0 8px;
+      border-top: 1px solid var(--rule);
+    }
+    .mobile-nav a { display: block; padding: 10px 0; }
+
+    .test-page { min-height: 100vh; }
+    .test-section {
+      position: relative;
+      isolation: isolate;
+      min-height: 100svh;
+      display: grid;
+      align-content: center;
+      padding: calc(var(--header-height) + 48px) var(--gut) 70px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .test-section > .hero-copy { position: relative; z-index: 1; }
+    .hero-art {
+      position: absolute;
+      inset: 0 0 0 auto;
+      z-index: 0;
+      width: 48%;
+      margin: 0;
+      overflow: hidden;
+      background: radial-gradient(120% 90% at 30% 20%, #5a4332 0%, #2c211a 45%, #120e0b 100%);
+      pointer-events: none;
+    }
+    .hero-art::before {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(90deg, var(--ink) 0%, rgba(13, 13, 13, .35) 30%, transparent 60%), radial-gradient(140% 100% at 60% 40%, transparent 50%, rgba(0, 0, 0, .6) 100%);
+      content: "";
+    }
+    .drum-stage { position: absolute; top: 50%; left: 8%; width: 84%; aspect-ratio: 4 / 3; transform: translateY(-50%); }
+    .hero-art svg { position: absolute; inset: 0; width: 100%; height: 100%; color: #e9dcc6; opacity: .34; overflow: visible; pointer-events: none; }
+    .drum-piece { transform-box: fill-box; transform-origin: center; transition: color .1s ease, opacity .1s ease; }
+    .drum-piece.is-hit { color: var(--rust); opacity: 1; animation: drum-hit .28s ease-out both; }
+    @keyframes drum-hit { 0% { transform: scale(1); } 35% { transform: scale(1.035); } 100% { transform: scale(1); } }
+    .hero-art img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) sepia(.5) contrast(1.15) brightness(.88); }
+    .hit-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+    .drum-hit-stage { position: absolute; top: 50%; right: 3.84%; width: 40.32%; aspect-ratio: 4 / 3; transform: translateY(-50%); }
+    .drum-hit {
+      position: absolute;
+      display: block;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .drum-hit::after { position: absolute; inset: 14%; border-radius: inherit; background: var(--rust); content: ""; opacity: 0; transform: scale(.7); }
+    .drum-hit.is-hit::after { animation: hit-glow .28s ease-out both; }
+    @keyframes hit-glow { 0% { opacity: .26; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.15); } }
+    .hit-kick { left: 32%; top: 43%; width: 36%; height: 48%; }
+    .hit-snare { left: 10%; top: 61%; width: 22%; height: 22%; }
+    .hit-tom-high { left: 30%; top: 30%; width: 19%; height: 22%; }
+    .hit-tom-mid { left: 49%; top: 30%; width: 20%; height: 22%; }
+    .hit-tom-low { left: 68%; top: 51%; width: 24%; height: 27%; }
+    .hit-hihat { left: 4%; top: 43%; width: 25%; height: 21%; }
+    .hit-crash-left { left: 0%; top: 12%; width: 30%; height: 20%; }
+    .hit-crash-right { left: 70%; top: 7%; width: 30%; height: 20%; }
+    .hit-ride { left: 42%; top: 0%; width: 24%; height: 20%; }
+    .drum-instruction { position: absolute; right: 14px; bottom: 14px; z-index: 5; margin: 0; color: var(--bone-2); opacity: .72; pointer-events: none; }
+    .drum-status { position: absolute; top: calc(100% - 86px); left: var(--gut); z-index: 3; min-height: 1.5em; margin: 0; color: var(--rust); opacity: 0; pointer-events: none; }
+    .drum-status.is-visible { opacity: 1; }
+    .test-section:nth-child(even) { background: #161412; }
+    .section-index { margin: 0 0 18px; color: var(--rust); }
+    h1, h2 { max-width: 9ch; margin: 0; font-size: clamp(4rem, 13vw, 12rem); font-weight: 900; letter-spacing: -.06em; line-height: .82; text-transform: uppercase; }
+    h2 { font-size: clamp(3rem, 9vw, 8rem); }
+    .intro { max-width: 48ch; margin: 34px 0 0; color: var(--bone-2); font-size: clamp(1rem, 1.5vw, 1.2rem); }
+    .test-note { position: fixed; right: var(--gut); bottom: 20px; z-index: 4; max-width: 34ch; padding: 12px 14px; border-left: 2px solid var(--rust); background: rgba(13, 13, 13, .9); color: var(--mute); }
+    .test-note b { color: var(--bone); }
+
+    @media (max-width: 820px) {
+      :root { --header-height: 60px; }
+      .top { grid-template-columns: 1fr auto; }
+      .desktop-nav, .location { display: none; }
+      .menu-toggle { display: block; }
+      .top.is-open .mobile-nav { display: block; }
+      .test-note { display: none; }
+      .hero-art { width: 100%; opacity: .55; }
+      .hero-art::before { background: linear-gradient(180deg, transparent 0%, transparent 57%, var(--ink) 94%); }
+      .drum-instruction { right: var(--gut); bottom: 70px; }
+      .drum-hit-stage { right: 8%; width: 84%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+      .drum-piece.is-hit, .drum-hit.is-hit::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top mono" id="site-header">
+    <a class="brand" href="#inicio" aria-label="Fer Bernstein, inicio">Fer Bernstein <strong>/ Drum Doctor</strong></a>
+
+    <nav class="desktop-nav" aria-label="Secciones principales">
+      <a href="#inicio" data-section="inicio">Inicio</a>
+      <a href="#servicios" data-section="servicios">Servicios</a>
+      <a href="#material" data-section="material">Material</a>
+      <a href="#contacto" data-section="contacto">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="location">Buenos Aires</span>
+      <a class="contact-link" href="#contacto">Reservar</a>
+      <button class="menu-toggle mono" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="open-label">Menu</span>
+        <span class="close-label">Cerrar</span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-menu" aria-label="Secciones móviles">
+      <a href="#inicio" data-section="inicio">01 / Inicio</a>
+      <a href="#servicios" data-section="servicios">02 / Servicios</a>
+      <a href="#material" data-section="material">03 / Material</a>
+      <a href="#contacto" data-section="contacto">04 / Contacto</a>
+    </nav>
+  </header>
+
+  <main class="test-page">
+    <section class="test-section" id="inicio">
+      <figure class="hero-art" aria-label="Batería interactiva">
+        <div class="drum-stage">
+          <svg class="drum-illustration" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g class="drum-piece" data-piece="crash-left" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="60" cy="70" rx="58" ry="7"/><path d="M60 77v150M46 227h28"/>
+            </g>
+            <g class="drum-piece" data-piece="crash-right" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="338" cy="58" rx="62" ry="8"/><ellipse cx="338" cy="56" rx="10" ry="3"/><path d="M338 66v160M322 226h32"/>
+            </g>
+            <g class="drum-piece" data-piece="hi-hat" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="82" cy="168" rx="36" ry="6"/><ellipse cx="82" cy="162" rx="36" ry="6"/><path d="M82 174v60"/>
+            </g>
+            <g class="drum-piece" data-piece="kick" fill="none" stroke="currentColor" stroke-width="1.4">
+              <circle cx="200" cy="200" r="72"/><circle cx="200" cy="200" r="64"/><circle cx="200" cy="200" r="22"/>
+              <path d="M200 128v-6M200 278v-6M128 200h-6M278 200h-6M149 149l-4-4M251 149l4-4M149 251l-4 4M251 251l4 4"/>
+            </g>
+            <g class="drum-piece" data-piece="tom-high" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="160" cy="112" rx="30" ry="9"/><path d="M130 112v26M190 112v26M130 138c10 7 50 7 60 0"/>
+            </g>
+            <g class="drum-piece" data-piece="tom-mid" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="240" cy="112" rx="34" ry="10"/><path d="M206 112v30M274 112v30M206 142c12 8 56 8 68 0"/>
+            </g>
+            <g class="drum-piece" data-piece="tom-low" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="316" cy="190" rx="44" ry="11"/><path d="M272 190v52M360 190v52M272 242c14 10 74 10 88 0"/>
+              <path d="M290 190v52M304 191v54M328 191v54M342 190v52"/>
+            </g>
+            <g class="drum-piece" data-piece="ride" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M200 60 190 20M200 60l28-36"/><ellipse cx="180" cy="22" rx="40" ry="5" transform="rotate(-8 180 22)"/>
+            </g>
+            <g class="drum-piece" data-piece="snare" fill="none" stroke="currentColor" stroke-width="1.4">
+              <ellipse cx="102" cy="216" rx="27" ry="8"/><ellipse cx="102" cy="212" rx="24" ry="6"/>
+              <path d="M75 216v34M129 216v34M75 250c8 12 38 12 54 0M82 225v24M94 226v25M106 226v25M118 225v24"/>
+            </g>
+          </svg>
+        </div>
+        <img src="img/hero-kit.jpg" alt="" aria-hidden="true">
+        <figcaption class="drum-instruction mono">Tocá la batería</figcaption>
+      </figure>
+      <div class="hit-layer">
+        <div class="drum-hit-stage">
+          <button class="drum-hit hit-kick" type="button" data-sound="kick" data-piece="kick" aria-label="Tocar bombo"></button>
+          <button class="drum-hit hit-snare" type="button" data-sound="snare" data-piece="snare" aria-label="Tocar redoblante"></button>
+          <button class="drum-hit hit-tom-high" type="button" data-sound="tom-high" data-piece="tom-high" aria-label="Tocar tom agudo"></button>
+          <button class="drum-hit hit-tom-mid" type="button" data-sound="tom-mid" data-piece="tom-mid" aria-label="Tocar tom medio"></button>
+          <button class="drum-hit hit-tom-low" type="button" data-sound="tom-low" data-piece="tom-low" aria-label="Tocar tom grave"></button>
+          <button class="drum-hit hit-hihat" type="button" data-sound="hi-hat" data-piece="hi-hat" aria-label="Tocar hi-hat"></button>
+          <button class="drum-hit hit-crash-left" type="button" data-sound="crash-left" data-piece="crash-left" aria-label="Tocar platillo crash izquierdo"></button>
+          <button class="drum-hit hit-crash-right" type="button" data-sound="crash-right" data-piece="crash-right" aria-label="Tocar platillo crash derecho"></button>
+          <button class="drum-hit hit-ride" type="button" data-sound="ride" data-piece="ride" aria-label="Tocar platillo ride"></button>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <p class="section-index mono">Header Lab / 01</p>
+        <h1>Drum<br>Doctor</h1>
+        <p class="intro">Variante experimental del header. El enlace activo acompaña la sección visible y el menú se adapta a pantallas chicas.</p>
+      </div>
+      <p class="drum-status mono" aria-live="polite"></p>
+    </section>
+    <section class="test-section" id="servicios">
+      <div>
+        <p class="section-index mono">Header Lab / 02</p>
+        <h2>Servicios</h2>
+        <p class="intro">Afinación, puesta a punto y asistencia de batería para grabaciones y shows.</p>
+      </div>
+    </section>
+    <section class="test-section" id="material">
+      <div>
+        <p class="section-index mono">Header Lab / 03</p>
+        <h2>Material</h2>
+        <p class="intro">Un espacio de prueba para validar navegación, contraste y comportamiento del header sobre distintos fondos.</p>
+      </div>
+    </section>
+    <section class="test-section" id="contacto">
+      <div>
+        <p class="section-index mono">Header Lab / 04</p>
+        <h2>Contacto</h2>
+        <p class="intro">hola@ferbernstein.com.ar</p>
+      </div>
+    </section>
+  </main>
+
+  <p class="test-note mono"><b>Modo prueba</b><br>Esta página no modifica el header de index.html.</p>
+
+  <script>
+    document.querySelectorAll('.hero-art img').forEach(function (img) {
+      function drop() { img.remove(); }
+      if (img.complete && img.naturalWidth === 0) drop();
+      else img.addEventListener('error', drop);
+      img.addEventListener('load', function () {
+        var art = img.parentNode && img.parentNode.querySelector('svg');
+        if (art) art.remove();
+      });
+    });
+
+    var AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+    var audioContext = AudioContextConstructor ? new AudioContextConstructor() : null;
+    var drumStatus = document.querySelector('.drum-status');
+    var hits = document.querySelectorAll('.drum-hit');
+    var useMediaSamples = location.protocol === 'file:';
+    var sampleUrls = {
+      kick: 'audio/kick.mp3',
+      snare: 'audio/snare.mp3',
+      'tom-low': 'audio/tom-low.mp3',
+      'tom-mid': 'audio/tom-mid.mp3',
+      'tom-high': 'audio/tom-high.mp3',
+      'hi-hat': 'audio/hi-hat.mp3',
+      'crash-left': 'audio/crash-left.mp3',
+      'crash-right': 'audio/crash-right.mp3',
+      ride: 'audio/ride.mp3'
+    };
+    var sampleGains = {
+      kick: .78,
+      snare: .68,
+      'tom-low': .64,
+      'tom-mid': .6,
+      'tom-high': .56,
+      'hi-hat': .38,
+      'crash-left': .34,
+      'crash-right': .34,
+      ride: .3
+    };
+    var sampleBuffers = {};
+    var mediaPools = {};
+    var samplesReady = audioContext && !useMediaSamples ? Promise.all(Object.keys(sampleUrls).map(function (name) {
+      return fetch(sampleUrls[name])
+        .then(function (response) { if (!response.ok) throw new Error('No se pudo cargar ' + name); return response.arrayBuffer(); })
+        .then(function (data) { return audioContext.decodeAudioData(data); })
+        .then(function (buffer) { sampleBuffers[name] = buffer; });
+    })) : (audioContext ? Promise.resolve() : Promise.reject(new Error('Web Audio API no disponible')));
+    var audioError = false;
+
+    if (useMediaSamples) {
+      Object.keys(sampleUrls).forEach(function (name) {
+        var audio = new Audio(sampleUrls[name]);
+        audio.preload = 'auto';
+        audio.setAttribute('aria-hidden', 'true');
+        audio.load();
+        mediaPools[name] = [audio];
+      });
+    }
+
+    samplesReady.catch(function () {
+      audioError = true;
+      drumStatus.textContent = 'Audio no disponible';
+      drumStatus.classList.add('is-visible');
+    });
+
+    function showHitFeedback(hit) {
+      var piece = document.querySelector('.drum-piece[data-piece="' + hit.dataset.piece + '"]');
+      [hit, piece].forEach(function (element) {
+        if (!element) return;
+        clearTimeout(element.hitTimer);
+        element.classList.remove('is-hit');
+        void element.offsetWidth;
+        element.classList.add('is-hit');
+        element.hitTimer = setTimeout(function () { element.classList.remove('is-hit'); }, 300);
+      });
+      drumStatus.textContent = hit.getAttribute('aria-label').replace('Tocar ', '');
+      drumStatus.classList.add('is-visible');
+      clearTimeout(drumStatus.hideTimer);
+      drumStatus.hideTimer = setTimeout(function () { drumStatus.classList.remove('is-visible'); }, 700);
+    }
+
+    function unlockAudio() {
+      if (!audioContext || audioContext.state !== 'suspended') return Promise.resolve();
+      return audioContext.resume();
+    }
+
+    function playSample(name) {
+      var buffer = sampleBuffers[name];
+      if (!audioContext || !buffer || audioContext.state !== 'running') return;
+      var source = audioContext.createBufferSource();
+      var gain = audioContext.createGain();
+      source.buffer = buffer;
+      gain.gain.value = sampleGains[name];
+      source.connect(gain).connect(audioContext.destination);
+      source.start(audioContext.currentTime + .002);
+    }
+
+    function playMediaSample(name) {
+      var pool = mediaPools[name];
+      if (!audioContext || !pool) return;
+      var audio = pool.find(function (item) { return item.paused || item.ended; });
+      if (!audio) {
+        audio = new Audio(sampleUrls[name]);
+        audio.preload = 'auto';
+        audio.setAttribute('aria-hidden', 'true');
+        pool.push(audio);
+        audio.load();
+      }
+      if (!audio._mediaSource) {
+        var mediaSource = audioContext.createMediaElementSource(audio);
+        var mediaGain = audioContext.createGain();
+        mediaGain.gain.value = sampleGains[name];
+        mediaSource.connect(mediaGain).connect(audioContext.destination);
+        audio._mediaSource = mediaSource;
+      }
+      audio.currentTime = 0;
+      audio.play().catch(function () {});
+    }
+
+    function hitDrum(hit) {
+      showHitFeedback(hit);
+      if (audioError) return;
+      if (useMediaSamples) {
+        unlockAudio();
+        playMediaSample(hit.dataset.sound);
+        return;
+      }
+      unlockAudio().then(function () { return samplesReady; }).then(function () {
+        playSample(hit.dataset.sound);
+      }).catch(function () {});
+    }
+
+    hits.forEach(function (hit) {
+      hit.addEventListener('pointerdown', function (event) {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        event.preventDefault();
+        hitDrum(hit);
+      });
+      hit.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        if (!event.repeat) hitDrum(hit);
+      });
+    });
+
+    var header = document.querySelector('#site-header');
+    var toggle = document.querySelector('.menu-toggle');
+    var mobileLinks = document.querySelectorAll('.mobile-nav a');
+    var links = document.querySelectorAll('[data-section]');
+    var sections = document.querySelectorAll('.test-section');
+
+    function closeMenu() {
+      header.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', function () {
+      var isOpen = header.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    mobileLinks.forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMenu();
+    });
+
+    addEventListener('scroll', function () {
+      header.classList.toggle('is-scrolled', scrollY > 20);
+    }, { passive: true });
+
+    var sectionObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (link) {
+          link.classList.toggle('is-active', link.dataset.section === entry.target.id);
+        });
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+
+    sections.forEach(function (section) { sectionObserver.observe(section); });
+  </script>
+</body>
+</html>
