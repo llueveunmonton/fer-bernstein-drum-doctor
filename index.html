@@ -2,7 +2,7 @@
 <html lang="es">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0d0d0d">
+<meta name="theme-color" content="#310606">
 <title>Fer Bernstein — Drum Doctor</title>
 <meta name="description" content="Afinación y puesta a punto de baterías para grabación y shows. Buenos Aires.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,26 +90,6 @@
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .rv.in,.hero-rule.in{animation:none}
-  }
-
-  /* ---------- 1 HERO ---------- */
-  #inicio{padding-top:calc(var(--head-h) + 20px)}
-  #inicio::before{content:"";position:absolute;inset:-18% -12%;z-index:0;pointer-events:none;background:radial-gradient(ellipse 40% 72% at 76% 45%,rgba(116,67,39,.28) 0%,rgba(116,67,39,.14) 38%,rgba(116,67,39,.05) 68%,transparent 100%);filter:blur(22px)}
-  #inicio .ph{position:absolute;top:0;right:0;bottom:0;width:48%;z-index:0}
-  #inicio .hero-ph{background:transparent;border:0;box-shadow:none;overflow:visible}
-  #inicio .hero-ph::before,#inicio .hero-ph::after{display:none}
-  .hero-body{justify-content:space-between !important}
-  .hero-title{margin-top:auto}
-  .hero-rule{width:clamp(80px,12vw,168px);height:3px;background:var(--rust);margin:clamp(22px,3vw,36px) 0 18px;border:0}
-  .hero-sub{color:var(--bone);letter-spacing:.22em}
-  .hero-sub em{font-style:normal;color:var(--rust)}
-  .hero-base{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-top:clamp(40px,8vh,96px)}
-  .anchor{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.05rem,1.8vw,1.5rem);line-height:1.05;max-width:28ch;margin:0}
-  .spec{border-left:1px solid var(--rust);padding-left:14px;color:var(--mute-d);font-size:10px;line-height:1.9;font-variant-numeric:tabular-nums}
-  .spec b{color:var(--bone);font-weight:500}
-  @media (max-width:820px){
-    #inicio::before{inset:-12% -18%;background:radial-gradient(ellipse 76% 42% at 50% 39%,rgba(116,67,39,.28) 0%,rgba(116,67,39,.14) 40%,rgba(116,67,39,.05) 70%,transparent 100%);filter:blur(18px)}
-    #inicio .ph{width:100%;opacity:.5}
   }
 
   /* ---------- 2 SERVICIOS ---------- */
@@ -232,52 +212,8 @@
   @media (max-width:960px){#contacto{padding-right:var(--gut)}}
   @media (max-width:560px){.ch a{grid-template-columns:1fr auto}.ch .mono{grid-column:1 / -1}}
 
-  /* ---------- batería interactiva del hero ---------- */
-  #inicio .hero-ph{z-index:0;pointer-events:none}
-  #inicio .hero-ph .drum-stage{position:absolute;top:50%;left:8%;z-index:1;width:84%;aspect-ratio:4 / 3;transform:translateY(-50%)}
-  #inicio .hero-ph .drum-stage svg.drum-illustration{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-  .drum-piece{transform-box:fill-box;transform-origin:center;transition:color .1s ease,opacity .1s ease;animation:drum-intro 1.4s cubic-bezier(.2,.7,.1,1) both}
-  .drum-piece.is-hit{color:var(--rust);opacity:1;animation:drum-hit .28s ease-out both}
-  @keyframes drum-intro{0%{color:#e9dcc6;opacity:.2}35%{color:var(--rust);opacity:.75}100%{color:#e9dcc6;opacity:.34}}
-  @keyframes drum-hit{0%{transform:scale(1)}35%{transform:scale(1.035)}100%{transform:scale(1)}}
-  #inicio .drum-hit-layer{position:absolute;inset:0;z-index:4;pointer-events:none}
-  #inicio .drum-hit-stage{position:absolute;top:50%;right:3.84%;width:40.32%;aspect-ratio:4 / 3;transform:translateY(-50%)}
-  .drum-hit{position:absolute;display:block;padding:0;border:1px solid transparent;border-radius:50%;background:transparent;cursor:pointer;pointer-events:auto;touch-action:none;-webkit-tap-highlight-color:transparent}
-  .drum-hit::after{position:absolute;inset:14%;border-radius:inherit;background:var(--rust);content:"";opacity:0;transform:scale(.7)}
-  .drum-hit.is-hit::after{animation:hit-glow .28s ease-out both}
-  @keyframes hit-glow{0%{opacity:.26;transform:scale(.7)}100%{opacity:0;transform:scale(1.15)}}
-  .hit-kick{left:32%;top:43%;width:36%;height:48%}
-  .hit-snare{left:10%;top:61%;width:22%;height:22%}
-  .hit-tom-high{left:30%;top:30%;width:19%;height:22%}
-  .hit-tom-mid{left:49%;top:30%;width:20%;height:22%}
-  .hit-tom-low{left:68%;top:51%;width:24%;height:27%}
-  .hit-hihat{left:4%;top:43%;width:25%;height:21%}
-  .hit-crash-left{left:0;top:12%;width:30%;height:20%}
-  .hit-crash-right{left:70%;top:7%;width:30%;height:20%}
-  .hit-ride{left:42%;top:0;width:24%;height:20%}
-  #inicio .drum-instruction{position:absolute;right:14px;bottom:14px;z-index:3;margin:0;color:var(--rust);opacity:.86;pointer-events:none}
-  .sound-mark{display:inline-flex;vertical-align:-2px;margin-right:5px}
-  .sound-mark svg{width:14px;height:12px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.2}
-  #inicio .drum-status{position:absolute;left:var(--gut);bottom:72px;z-index:3;min-height:1.5em;margin:0;color:var(--rust);opacity:0;pointer-events:none}
-  #inicio .drum-status.is-visible{opacity:1}
-  @media (max-width:820px){
-    #inicio{--instrument-height:clamp(220px,63vw,300px);display:flex;flex-direction:column;min-height:100svh;padding-top:calc(var(--head-h) + 24px)}
-    #inicio .body{display:contents}
-    #inicio .hero-body > div:first-child{display:none}
-    #inicio .hero-title{order:1;margin-top:0}
-    #inicio .hero-ph{position:relative;top:auto;right:auto;bottom:auto;left:auto;order:2;width:100%;height:var(--instrument-height);flex:none;opacity:.8}
-    #inicio .hero-ph::after{background:linear-gradient(180deg,rgba(13,13,13,.1) 0%,rgba(13,13,13,.18) 66%,rgba(13,13,13,.5) 100%)}
-    #inicio .hero-ph .drum-stage svg.drum-illustration{opacity:.62}
-    #inicio .drum-hit-layer{position:relative;top:auto;right:auto;bottom:auto;left:auto;order:2;width:100%;height:0;flex:none}
-    #inicio .drum-hit-stage{top:calc(-1 * var(--instrument-height) + clamp(110px,31.5vw,150px) - 31.5vw + .63 * var(--gut));right:auto;left:8%;width:84%;transform:none}
-    #inicio .hero-sub{order:3;margin-top:clamp(16px,4vw,28px);max-width:38ch}
-    #inicio .hero-base{order:4;margin-top:clamp(22px,6vw,36px);align-items:flex-start}
-    #inicio .drum-instruction{right:var(--gut);bottom:16px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    .drum-piece.is-hit,.drum-hit.is-hit::after{animation:none}
-  }
 </style>
+<link rel="stylesheet" href="hero.css">
 
 <!-- Ilustraciones de línea: se ven solo mientras no haya foto real en /img -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -324,83 +260,42 @@
 
 <header class="top mono">
   <a href="#inicio">Fer Bernstein</a>
-  <div class="r"><span>Sound Consulting / </span><span>Buenos Aires</span></div>
+  <nav class="hero-nav" aria-label="Navegación principal"><a href="#servicios">Servicios</a><a href="#contacto">Contacto <span aria-hidden="true">↗</span></a></nav>
 </header>
 
 <main>
 
 <!-- 01 HERO -->
-<section class="slide dark" id="inicio" data-name="Inicio">
-  <figure class="ph hero-ph" style="margin:0" aria-label="Batería interactiva">
-    <div class="drum-stage">
-      <svg class="art drum-illustration" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <g class="drum-piece" data-piece="crash-left" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="60" cy="70" rx="58" ry="7"/><path d="M60 77v150M46 227h28"/>
-        </g>
-        <g class="drum-piece" data-piece="crash-right" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="338" cy="58" rx="62" ry="8"/><ellipse cx="338" cy="56" rx="10" ry="3"/><path d="M338 66v160M322 226h32"/>
-        </g>
-        <g class="drum-piece" data-piece="hi-hat" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="82" cy="168" rx="36" ry="6"/><ellipse cx="82" cy="162" rx="36" ry="6"/><path d="M82 174v60"/>
-        </g>
-        <g class="drum-piece" data-piece="kick" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="200" cy="200" r="72"/><circle cx="200" cy="200" r="64"/><circle cx="200" cy="200" r="22"/>
-          <path d="M200 128v-6M200 278v-6M128 200h-6M278 200h-6M149 149l-4-4M251 149l4-4M149 251l-4 4M251 251l4 4"/>
-        </g>
-        <g class="drum-piece" data-piece="tom-high" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="160" cy="112" rx="30" ry="9"/><path d="M130 112v26M190 112v26M130 138c10 7 50 7 60 0"/>
-        </g>
-        <g class="drum-piece" data-piece="tom-mid" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="240" cy="112" rx="34" ry="10"/><path d="M206 112v30M274 112v30M206 142c12 8 56 8 68 0"/>
-        </g>
-        <g class="drum-piece" data-piece="tom-low" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="316" cy="190" rx="44" ry="11"/><path d="M272 190v52M360 190v52M272 242c14 10 74 10 88 0"/>
-          <path d="M290 190v52M304 191v54M328 191v54M342 190v52"/>
-        </g>
-        <g class="drum-piece" data-piece="ride" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M200 60 190 20M200 60l28-36"/><ellipse cx="180" cy="22" rx="40" ry="5" transform="rotate(-8 180 22)"/>
-        </g>
-        <g class="drum-piece" data-piece="snare" fill="none" stroke="currentColor" stroke-width="1.4">
-          <ellipse cx="102" cy="216" rx="27" ry="8"/><ellipse cx="102" cy="212" rx="24" ry="6"/>
-          <path d="M75 216v34M129 216v34M75 250c8 12 38 12 54 0M82 225v24M94 226v25M106 226v25M118 225v24"/>
-        </g>
-      </svg>
+<section class="slide dark" id="inicio" data-name="Inicio" aria-labelledby="hero-heading">
+  <div class="hero-scene">
+    <div class="hero-copy">
+      <h1 id="hero-heading" class="hero-heading">Drum<br>Doctor</h1>
+      <p class="hero-sub mono">Afinación · Sonido · Baterías</p>
     </div>
-    <img src="img/hero-kit.jpg" alt="Batería Ludwig de los años 60 en estudio">
-    <p class="drum-instruction mono"><span class="sound-mark" aria-hidden="true"><svg viewBox="0 0 16 12"><path d="M1 5h3l3-3v8L4 7H1zM10 4c1 1 1 3 0 4M12 2c2 2 2 6 0 8"/></svg></span> Tocá para escuchar</p>
-  </figure>
-  <div class="drum-hit-layer">
-    <div class="drum-hit-stage">
-      <button class="drum-hit hit-kick" type="button" data-sound="kick" data-piece="kick" aria-label="Tocar bombo"></button>
-      <button class="drum-hit hit-snare" type="button" data-sound="snare" data-piece="snare" aria-label="Tocar redoblante"></button>
-      <button class="drum-hit hit-tom-high" type="button" data-sound="tom-high" data-piece="tom-high" aria-label="Tocar tom agudo"></button>
-      <button class="drum-hit hit-tom-mid" type="button" data-sound="tom-mid" data-piece="tom-mid" aria-label="Tocar tom medio"></button>
-      <button class="drum-hit hit-tom-low" type="button" data-sound="tom-low" data-piece="tom-low" aria-label="Tocar tom grave"></button>
-      <button class="drum-hit hit-hihat" type="button" data-sound="hi-hat" data-piece="hi-hat" aria-label="Tocar hi-hat"></button>
-      <button class="drum-hit hit-crash-left" type="button" data-sound="crash-left" data-piece="crash-left" aria-label="Tocar platillo crash izquierdo"></button>
-      <button class="drum-hit hit-crash-right" type="button" data-sound="crash-right" data-piece="crash-right" aria-label="Tocar platillo crash derecho"></button>
-      <button class="drum-hit hit-ride" type="button" data-sound="ride" data-piece="ride" aria-label="Tocar platillo ride"></button>
-    </div>
-  </div>
-  <p class="drum-status mono" aria-live="polite"></p>
-  <div class="body hero-body">
-    <div></div>
-    <div class="hero-title">
-      <h1 class="d d-xxl rv">Drum<br>Doctor</h1>
-      <hr class="hero-rule rv">
-    </div>
-    <p class="mono hero-sub rv" style="--d:.2s;margin:0">Afinación / Puesta a punto <em>—</em> Grabación / Shows</p>
-    <div class="hero-base">
-      <p class="anchor rv" style="--d:.35s">El sonido empieza antes del primer golpe.</p>
-      <div class="spec mono rv" style="--d:.5s" aria-label="Referencia de afinación">
-        Ref. afinación<br>
-        Bombo 22″ ··· <b>55 Hz</b><br>
-        Tom 13″ ···· <b>110 Hz</b><br>
-        Redo 14″×5″ · <b>220 Hz</b>
+    <div class="drum-canvas" role="group" aria-label="Batería interactiva: tocá cada instrumento para escucharlo">
+      <picture>
+        <source media="(max-width: 640px)" srcset="img/drum-doctor-studio-960.webp">
+        <img class="studio-kit" src="img/drum-doctor-studio.webp" width="1536" height="1024" alt="Batería de madera con bombo de parche crema, tres toms, redoblante cromado y platillos dorados sobre un fondo bordó." fetchpriority="high" decoding="async">
+      </picture>
+      <div class="drum-hit-stage">
+        <button class="drum-hit hit-kick" type="button" data-sound="kick" data-piece="kick" aria-label="Tocar bombo"></button>
+        <button class="drum-hit hit-snare" type="button" data-sound="snare" data-piece="snare" aria-label="Tocar redoblante"></button>
+        <button class="drum-hit hit-tom-high" type="button" data-sound="tom-high" data-piece="tom-high" aria-label="Tocar tom agudo"></button>
+        <button class="drum-hit hit-tom-mid" type="button" data-sound="tom-mid" data-piece="tom-mid" aria-label="Tocar tom medio"></button>
+        <button class="drum-hit hit-tom-low" type="button" data-sound="tom-low" data-piece="tom-low" aria-label="Tocar tom grave"></button>
+        <button class="drum-hit hit-hihat" type="button" data-sound="hi-hat" data-piece="hi-hat" aria-label="Tocar hi-hat"></button>
+        <button class="drum-hit hit-crash-left" type="button" data-sound="crash-left" data-piece="crash-left" aria-label="Tocar platillo crash izquierdo"></button>
+        <button class="drum-hit hit-crash-right" type="button" data-sound="crash-right" data-piece="crash-right" aria-label="Tocar platillo crash derecho"></button>
+        <button class="drum-hit hit-ride" type="button" data-sound="ride" data-piece="ride" aria-label="Tocar platillo ride"></button>
       </div>
     </div>
+    <div class="hero-listen">
+      <p class="drum-instruction mono">Tocá la batería</p>
+      <p class="drum-help">Cada cuerpo tiene su sonido.</p>
+      <p class="drum-status mono" aria-live="polite" aria-atomic="true"></p>
+    </div>
   </div>
-  <footer class="foot mono"><span>Fer Bernstein / Drum Doctor</span><span class="c">Inicio</span><span class="p"><b>01</b> / 08</span></footer>
+  <footer class="hero-footer mono"><span>Drum Doctor / Fer Bernstein</span><a href="#servicios">Explorá los servicios <span aria-hidden="true">↓</span></a></footer>
 </section>
 
 <!-- 02 SERVICIOS -->
@@ -761,10 +656,9 @@
       event.preventDefault();
       hitDrum(hit);
     });
-    hit.addEventListener('keydown', function (event) {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      if (!event.repeat) hitDrum(hit);
+    hit.addEventListener('click', function (event) {
+      // Pointer hits already play on pointerdown; native keyboard/AT clicks have detail 0.
+      if (event.detail === 0) hitDrum(hit);
     });
   });
 
