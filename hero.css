@@ -27,8 +27,10 @@
 .hit-crash-right{left:65.5%;top:13.5%;width:22%;height:11%;transform:rotate(-10deg)}
 .hit-ride{left:17.5%;top:30%;width:22.5%;height:8%;transform:rotate(5deg)}
 .hero-listen{position:absolute;left:0;right:0;bottom:1.5%;text-align:center;color:#fff0da;pointer-events:none}
-.drum-instruction{margin:0;font-size:clamp(13px,1.45cqw,22px);letter-spacing:.28em}
-.drum-help{margin:4px 0 0;font-size:clamp(11px,.95cqw,14px);letter-spacing:.09em}
+.drum-instruction{display:inline-flex;align-items:center;gap:12px;margin:0;padding-bottom:7px;border-bottom:1px solid #e8b46b80;color:#ffd08b;font-size:clamp(17px,1.65cqw,25px);font-weight:700;letter-spacing:.17em;text-shadow:0 0 24px #e8a14c55}
+.drum-instruction::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 5px #f4bd7220;animation:listen-signal 2s ease-out 3}
+@keyframes listen-signal{0%,100%{box-shadow:0 0 0 5px #f4bd7220}50%{box-shadow:0 0 0 10px #f4bd7200}}
+.drum-help{margin:8px 0 0;color:#f2dfc6;font-size:clamp(11px,.95cqw,14px);letter-spacing:.09em}
 .drum-status{min-height:1.5em;margin:6px 0 0;color:#edbc76;font-size:10px;opacity:0;transition:opacity .12s}
 .drum-status.is-visible{opacity:1}
 .hero-footer{position:absolute;bottom:0;left:var(--gut);right:var(--gut);height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #ead3b333;color:#e3cfb7;font-size:9px}
@@ -47,7 +49,7 @@
   /* Blend the scene edges into the mobile background without cropping the kit. */
   .studio-kit{mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent)}
   .hero-listen{position:relative;bottom:auto;margin:0 0 8px;padding:0 var(--gut)}
-  .drum-instruction{font-size:14px}
+  .drum-instruction{font-size:17px;letter-spacing:.13em}
   .drum-help{font-size:12px}
   .drum-status{margin-top:8px}
   .hero-footer{font-size:8px;letter-spacing:.08em}
@@ -66,4 +68,5 @@
 @media(prefers-reduced-motion:reduce){
   .drum-hit.is-hit::after{animation:none;opacity:.45}
   .drum-status{transition:none}
+  .drum-instruction::before{animation:none}
 }
